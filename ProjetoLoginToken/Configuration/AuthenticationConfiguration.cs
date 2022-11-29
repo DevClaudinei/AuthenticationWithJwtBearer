@@ -19,7 +19,7 @@ public static class AuthenticationConfiguration
         {
             options.Issuer = jwtAppSettingOptions[nameof(JwtOptions.Issuer)];
             options.Audience = jwtAppSettingOptions[nameof(JwtOptions.Audience)];
-            options.SigningCredentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha512);
+            options.SigningCredentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
             options.AccessTokenExpiration = int.Parse(jwtAppSettingOptions[nameof(JwtOptions.AccessTokenExpiration)] ?? "0");
             options.RefreshTokenExpiration = int.Parse(jwtAppSettingOptions[nameof(JwtOptions.RefreshTokenExpiration)] ?? "0");
         });
