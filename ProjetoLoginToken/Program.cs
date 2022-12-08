@@ -5,7 +5,6 @@ using ProjetoLoginToken.Configuration;
 using ProjetoLoginToken.Services;
 using ProjetoLoginToken.Services.Interfaces;
 using ProjetoLoginToken.Services.PasswordHasher;
-using ProjetoLoginToken.Services.TokenGenerator;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,15 +12,13 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerSetup();
 builder.Services.AddAuthenticationConfiguration(builder.Configuration);
 builder.Services.AddAuthentication();
 builder.Services.AddAuthorization();
 builder.Services.AddAutoMapperConfiguration();
 builder.Services.AddSingleton<IUserService, UserService>();
 builder.Services.AddSingleton<IPasswordHasher, BcryptedPasswordHasher>();
-builder.Services.AddSingleton<AcessTokenGenerator>();
 builder.Services.AddMvcConfiguration();
 
 var app = builder.Build();
@@ -34,6 +31,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseAuthentication();
 
 app.UseAuthorization();
 
